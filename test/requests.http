@@ -1,0 +1,78 @@
+POST https://{{host}}/account/authenticate
+Content-Type: application/json
+
+{
+	"hostName": "{{tenantUrl}}",
+	"username": "{{tenantUsername}}",
+	"password": "{{tenantPassword}}"
+}
+
+> {%
+     client.global.set("token", response.body.authorizationToken);
+ %}
+
+###
+POST https://{{host}}/policyholder/create
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "values": {
+    "first_name": "John",
+    "last_name": "Doe",
+    "occupation": "Unemployed",
+    "gender": "Male",
+    "marital_status": "Single",
+    "date_of_birth": "1990-01-01"
+  }
+}
+
+> {%
+client.log(client.global.get("token"))
+ %}
+
+###
+POST https://api.sandbox.socotra.com/policyholder/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50LnR5cGUiOiJhY2NvdW50LnRlbmFudC5lbXBsb3llZSIsInRlbmFudC5uYW1lIjoia2pleWFwcmFrYXNhbS1oZXhhd2FyZS03ZWY4ZjQ1NC1iODA1LTRhZTUtOTA0OS03MjIxN2Q1NDNmYTciLCJvbnRvbG9neS51dWlkIjoiMTFlYi1lNDk0LTJiOGZhOGUwLWIzZTMtNGE2M2FiM2RjYzNjIiwic3ViIjoiYTc2YzZmNjktOWExZS00NjhlLThmMmQtZTVkNDgzNmY4YTcxIiwiYWNjb3VudC5uYW1lIjoiQWxpY2UgTGVlIiwiYWNjb3VudC51dWlkIjoiYTc2YzZmNjktOWExZS00NjhlLThmMmQtZTVkNDgzNmY4YTcxIiwidGVuYW50LnV1aWQiOiIwOGRjY2VmOC05MDljLTQxYzItYTI3Mi00ZTQzM2U0YmYwMDAiLCJ0ZW5hbnQudHlwZSI6InRlbmFudC50ZXN0IiwiZXhwIjoxNjI2Mjg1NTUzLCJ0ZW5hbnQudGltZXpvbmUiOiJBbWVyaWNhXC9Mb3NfQW5nZWxlcyIsImlhdCI6MTYyNjI4MTk1M30.E3r05aRF78wum9JdDKfbsO8VEuC3bTeBMkORKW_FONE
+Content-Type: application/json
+
+{
+  "values": {
+    "first_name": "John",
+    "last_name": "Doe",
+    "occupation": "Unemployed",
+    "gender": "Male",
+    "marital_status": "Single",
+    "date_of_birth": "1990-01-01"
+  }
+}
+> {%
+client.global.set("policyholderLocator", response.body.locator);
+client.log(response.body.locator);
+ %}
+
+###
+
+POST https://{{host}}/policy/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "finalize": false,
+  "policyholderLocator": "{{policyholderLocator}}",
+  "productName": "single-trip-policy",
+  "policyStartTimestamp": "1626803198",
+  "policyEndTimestamp": "1627667198"
+
+}
+
+
+
+> {%
+    client.global.set("policyLocator", response.body.locator);
+ %}
+
+
+
+
+

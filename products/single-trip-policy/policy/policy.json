@@ -1,0 +1,83 @@
+{
+  "fields": [
+    {
+      "title": "Country To Visit",
+      "name": "countryToVisit",
+      "type": "select",
+      "values": [
+        "India",
+        "Zambia",
+        "South Africa",
+        "United Kingdom",
+        "Canada"
+      ],
+      "match": [
+        "Canada",
+        "Zambia",
+        "South Africa",
+        "United Kingdom"
+      ]
+    },
+    {
+      "title": "Travel Start Date",
+      "name": "travelStartDate",
+      "type": "date",
+      "precision": "day",
+      "minimumOffset": {
+        "roundToDay": true,
+        "field": "day",
+        "amount": 1
+      },
+      "maximumOffset": {
+        "roundToDay": true,
+        "field": "day",
+        "amount": 45
+      },
+      "showCalendar": false
+    },
+    {
+      "title": "Travel End Date",
+      "name": "travelEndDate",
+      "type": "date",
+      "precision": "day",
+      "showCalendar": false
+    },
+    {
+      "title": "Travellers",
+      "name": "travellers",
+      "type": "group",
+      "fields": [
+        {
+          "title": "Name",
+          "name": "name",
+          "type": "string",
+          "optional": true
+        },
+        {
+          "title": "Age",
+          "name": "age",
+          "type": "number",
+          "optional": true
+        }
+      ],
+      "repeatable": true
+    }
+  ],
+  "documents": [
+    {
+      "displayName": "Policy Schedule",
+      "fileName": "schedule.pdf",
+      "templateName": "schedule.template.liquid",
+      "generatingEvent": "quote"
+    }
+  ],
+  "invoicing": {
+    "generatingEvent": "accept"
+  },
+  "plugins": {
+    "getUnderWritingResult": {
+      "path": "rating/underwriter.js",
+      "enabled": true
+    }
+  }
+}

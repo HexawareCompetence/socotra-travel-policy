@@ -1,0 +1,1 @@
+{"name":"loss_of_baggage","displayName":"Loss_of_baggage","fields":[{"title":"Limit","name":"limit","type":"select","values":["2000","4000","7000"]},{"title":"Deductible","name":"deductible","type":"select","values":["200","300","450"]}],"indemnityPerItem":"50000","indemnityPerEvent":"100000","indemnityInAggregate":"100000","deductible":"1000","lumpSumPayment":"0"}
